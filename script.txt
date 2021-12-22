@@ -1,0 +1,175 @@
+
+CREATE SCHEMA IF NOT EXISTS `recruit_portal` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `recruit_portal` ;
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`seeker_profile` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `age` INT NULL DEFAULT NULL,
+  `gender` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 28
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`education_detail` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `university` VARCHAR(45) NULL DEFAULT NULL,
+  `speciality` VARCHAR(45) NULL DEFAULT NULL,
+  `graduation_year` INT NULL DEFAULT NULL,
+  `admission_year` INT NULL DEFAULT NULL,
+  `seeker_profile_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_education_seeker_profile_idx` (`seeker_profile_id` ASC) VISIBLE,
+  CONSTRAINT `fk_education_seeker_profile1`
+    FOREIGN KEY (`seeker_profile_id`)
+    REFERENCES `recruit_portal`.`seeker_profile` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 36
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`experience_detail` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `company_name` VARCHAR(45) NULL DEFAULT NULL,
+  `job_title` VARCHAR(45) NULL DEFAULT NULL,
+  `time_of_experience` VARCHAR(45) NULL DEFAULT NULL,
+  `seeker_profile_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_experience_seeker_profile1_idx` (`seeker_profile_id` ASC) VISIBLE,
+  CONSTRAINT `fk_experience_seeker_profile1`
+    FOREIGN KEY (`seeker_profile_id`)
+    REFERENCES `recruit_portal`.`seeker_profile` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 37
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`job_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `job_type_name` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 27
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_type` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NULL DEFAULT NULL,
+  `phone` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`job_post` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `job_title` VARCHAR(45) NULL DEFAULT NULL,
+  `job_type_id` INT NULL DEFAULT NULL,
+  `job_recruiter` INT NOT NULL,
+  `salary_high` INT NULL DEFAULT NULL,
+  `salary_low` INT NULL DEFAULT NULL,
+  `created_date` DATE NOT NULL,
+  `compensation_term` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_job_post_job_type1_idx` (`job_type_id` ASC) VISIBLE,
+  INDEX `fk_job_post_user_idx` (`job_recruiter` ASC) VISIBLE,
+  CONSTRAINT `fk_job_post_job_type`
+    FOREIGN KEY (`job_type_id`)
+    REFERENCES `recruit_portal`.`job_type` (`id`),
+  CONSTRAINT `fk_job_post_user`
+    FOREIGN KEY (`job_recruiter`)
+    REFERENCES `recruit_portal`.`user` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 11
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`job_post_activity` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `job_post_id` INT NOT NULL,
+  `seeker_profile_id` INT NOT NULL,
+  `activity_type` VARCHAR(45) NULL DEFAULT NULL,
+  `apply_date` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_job_post_activity_job_post_idx` (`job_post_id` ASC) VISIBLE,
+  INDEX `fk_job_post_activity_seeker_profile_idx` (`seeker_profile_id` ASC) VISIBLE,
+  CONSTRAINT `fk_job_post_activity_job_post`
+    FOREIGN KEY (`job_post_id`)
+    REFERENCES `recruit_portal`.`job_post` (`id`),
+  CONSTRAINT `fk_job_post_activity_seeker_profile`
+    FOREIGN KEY (`seeker_profile_id`)
+    REFERENCES `recruit_portal`.`seeker_profile` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 19
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`skill_set` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `skill_set_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 16
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`job_post_skill_set` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `skill_level` VARCHAR(45) NULL DEFAULT NULL,
+  `job_post_id` INT NOT NULL,
+  `skill_set_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_job_post_activity_seeker_profile_idx` (`job_post_id` ASC) VISIBLE,
+  INDEX `fk_job_post_skill_set_skill_set_idx` (`skill_set_id` ASC) VISIBLE,
+  CONSTRAINT `fk_job_post_skill_set_job_post1`
+    FOREIGN KEY (`job_post_id`)
+    REFERENCES `recruit_portal`.`job_post` (`id`),
+  CONSTRAINT `fk_seeker_skill_set_seeker_profile2`
+    FOREIGN KEY (`skill_set_id`)
+    REFERENCES `recruit_portal`.`skill_set` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 16
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `recruit_portal`.`seeker_skill_set` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `seeker_profile_id` INT NOT NULL,
+  `skill_level` VARCHAR(45) NULL DEFAULT NULL,
+  `skill_set_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_job_post_skill_set_skill_set1_idx` (`skill_set_id` ASC) VISIBLE,
+  INDEX `fk_seeker_skill_set_seeker_profile1_idx` (`seeker_profile_id` ASC) VISIBLE,
+  CONSTRAINT `fk_job_post_skill_set_skill_set1`
+    FOREIGN KEY (`skill_set_id`)
+    REFERENCES `recruit_portal`.`skill_set` (`id`),
+  CONSTRAINT `fk_seeker_skill_set_seeker_profile1`
+    FOREIGN KEY (`seeker_profile_id`)
+    REFERENCES `recruit_portal`.`seeker_profile` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 21
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
