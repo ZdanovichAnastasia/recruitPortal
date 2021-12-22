@@ -1,0 +1,80 @@
+.filter_form{
+    background-color: tan;
+    padding: 20px;
+}
+
+.filter_form button{
+    margin-left: 1270px;
+    height: 40px;
+    width: 170px;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+}
+#position, #city, #category{
+    height: 40px;
+    width: 300px;
+    font-size: 20px;
+    margin-left: 130px;
+}
+
+.filter_form > form > div{
+    display: inline-block;
+}
+
+.schedule, .busyness{
+    margin-left: 30px;
+    vertical-align: top;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+    padding: 0;
+}
+.busyness{
+    margin-left: 150px;
+}
+
+
+.resume_content{
+    background-color: rgb(128, 183, 238);
+    margin: 10px 40px 0px 40px;
+    padding: 5px;
+    padding-left: 36px;
+}
+
+.resume_content a{
+    text-decoration: none;
+    color: #d35050;
+
+}
+.resume_content h3{
+    color: #767676;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 26px;
+    letter-spacing: 3px;
+    font-family: 'Exo 2', sans-serif;
+}
+.resume_content p{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 20px;
+}
+
+.resume_content{
+    position: relative;
+}
+
+.resume_content .fio{
+    margin-top: -20px;
+}
+.resume_content button{
+    
+    margin-left: 1180px;
+    height: 60px;
+    width: 170px;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+}
+.resume_content .skills{
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+}

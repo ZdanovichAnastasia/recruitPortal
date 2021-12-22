@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymleafe.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/input.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+
+<script>setHeader("администратор");</script>
+<div class="container">
+    <form  th:action="@{/logout}" method="post">
+        <div class="login">
+            <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+        </div>
+    </form>
+</div>
+<div class="content">
+
+    <div class="input-window">
+        <form method="post" th:action="@{/post/{id}(id=${post.getId()})}" th:object="${post}">
+            <input type="hidden" th:field="*{createdDate}">
+            <input type="text" th:field="*{jobTitle}" placeholder="Название"><br/>
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('jobTitle')}" th:errors="*{jobTitle}">error</p>
+
+            <select th:field="*{jobType.id}" id="type">
+                <option th:each="type : ${types}" th:value="${type.id}"
+                        th:text="${type.jobTypeName}"></option>
+            </select>
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('jobType.id')}" th:errors="*{jobType.id}">error</p>
+            <br />
+
+            <label>Зарплата: </label>
+            <input type="text" th:field="*{salaryLow}" placeholder="от">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('salaryLow')}" th:errors="*{salaryLow}">error</p>
+            <input type="text" th:field="*{salaryHigh}" placeholder="до">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('salaryHigh')}" th:errors="*{salaryHigh}">error</p>
+            <br />
+            <div>
+                <label for="date">Дата окончания набора: </label>
+                <input type="date" th:field="*{compensationTerm}" id="date"/>
+                <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('compensationTerm')}" th:errors="*{compensationTerm}">error</p>
+            </div><br />
+
+            <select th:field="*{user.id}" id="person">
+                <option th:each="rec : ${recruiters}" th:value="${rec.getId()}"
+                        th:text="${rec.login}"></option>
+            </select>
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('user.id')}" th:errors="*{user.id}">error</p>
+
+            <br />
+
+            <button>Сохранить изменения</button>
+        </form>
+
+    </div>
+</div>
+</div>
+</body>
+</html>

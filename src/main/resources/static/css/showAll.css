@@ -1,0 +1,184 @@
+.filter-form, .sort-form, .search-form{
+    width: 1266px;
+    margin-left: 60px;
+    background: #F3F7F8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 24px 57px;
+}
+
+.search-form{
+    margin-top: 25px;
+}
+
+.sort-form{
+    margin-top: 25px;
+}
+
+.filter-form h3, .sort-form h3, .search-form h3{
+    font-family: cursive;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+
+    color: #21C2F8;
+}
+
+.filter-form button, .sort-form button, .search-form button{
+    width: 237px;
+    height: 45px;
+    margin-left: 1050px;
+    background: #21C2F8;
+    border-radius: 30px;
+    border: none;
+    font-family: Baloo 2;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 31px;
+
+    color: #FFFFFF;
+}
+
+.filter-form select, .filter-form input, .search-form input, .company-buttons select{
+    width: 219px;
+    height: 33px;
+    background: #FFFFFF;
+    border: 1px solid #21C2F8;
+    box-sizing: border-box;
+}
+.jobPost-filter-par select, .resume-filter-par select{
+    margin-left: 100px;
+}
+
+.jobPost-filter-par input, .resume-filter-par input, .company-filter-par select{
+    margin-left: 30px;
+}
+
+.sort-form label, .filter-form select, .filter-form input, .search-form input{
+    font-family: cursive;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.details, .activity{
+    width: 1156px;
+    margin-left: 110px;
+    margin-top: 45px;
+    background: #F3F7F8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 15px 43px 15px 65px;
+}
+
+.details button{
+    font-family: Baloo 2;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 38px;
+    color: #FFFBFB;
+
+    background: #21C2F8;
+    border-radius: 30px;
+    border: none;
+}
+
+
+.details h3, .details h3 a, .activity h3{
+    text-decoration: none;
+    text-decoration: none;
+    font-family: cursive;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+
+    color: #21C2F8;
+}
+
+.details p{
+    font-family: cursive;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 15px;
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////*/
+
+.jobPost-par button{
+    width: 185px;
+    height: 46px;
+    margin-left: 1000px;
+}
+
+.resume-par button, .resp-par > button, .offer-par > button{
+    width: 257px;
+    height: 46px;
+    margin-left: 920px;
+}
+
+.company-par .count, .jobPost-par .count{
+    margin-left: 900px;
+}
+.company-par>button{
+    margin-left: 900px;
+}
+.company-par .buttons{
+    margin-left: 1000px;
+}
+.offer-par .buttons{
+    margin-left: 800px;
+}
+.resp-par .buttons{
+    margin-left: 740px;
+}
+
+.userType{
+    font-family: cursive;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.create-button{
+    width: 400px;
+    height: 77px;
+    margin-left: 544px;
+    margin-top: 49px;
+
+    background: #21C2F8;
+    border-radius: 30px;
+    border: none;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 57px;
+    color: #FFFEFE;
+}
+
+.company-buttons{
+    margin-left: 250px;
+}
+
+.company-buttons button{
+    height: 70px;
+    margin-top: 49px;
+    margin-right: 50px;
+
+    background: #21C2F8;
+    border-radius: 30px;
+    border: none;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 57px;
+    color: #FFFEFE;
+}
+
+.company-par .business-streams{
+    display: inline-block;
+}

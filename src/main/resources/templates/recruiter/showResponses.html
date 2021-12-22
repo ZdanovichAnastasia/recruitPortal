@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <script src="/js/headers.js"></script>
+    <script src="/js/filter.js"></script>
+</head>
+
+<body>
+<script>setHeader("рекрутер");</script>
+<div class="container">
+    <form  th:action="@{/logout}" method="post">
+        <div class="login">
+            <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+        </div>
+    </form>
+</div>
+
+<div class="content">
+
+    <div class="filter-form" id="filter">
+        <h3>Расширеный поиск</h3>
+        <form th:method="post" th:action="${'/filterResponses'}">
+            <div class="jobPost-filter-par">
+                <select name="jobPost" id="jobPost">
+                    <option value="" selected>Вакансия</option>
+                    <script th:inline="javascript">
+                        var jobPostList = [[${jobPostList}]];
+                        addList(jobPostList, jobPost);
+                    </script>
+                </select>
+                <div class="userType">
+                    <label><input type="checkbox" name="activityType" value="interview">Прошли собеседование</label>
+                    <label><input type="checkbox" name="activityType" value="response">Нужно провести собеседование</label><br>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <button>Применить и найти</button>
+        </form>
+    </div>
+
+    <div  th:if="${responsesList != null && !responsesList.isEmpty()}">
+        <div class="details" th:each="response : ${responsesList}">
+            <div class="resp-par" >
+                <h3><a th:text="'Вакансия: '+${response.post.jobTitle}" th:href="'/showJobPost?idJobPost='+${response.post.id}"></a></h3>
+                <p th:text="'Набор открыт с ' + ${response.post.createdDate} +' до ' + ${response.post.compensationTerm}"></p>
+                <h3><a th:text="'Резюме: ' + ${response.profile.lastName} + ' ' + ${response.profile.firstName}" th:href="'/recruiter/showSeekerProfile?idSeekerProfile='+${response.profile.id}"></a></h3>
+                <p th:text="${response.applyDate}"></p>
+                <div class="buttons">
+                    <div th:if="${response.type.equals('response')}">
+                        <a id="button" th:href="@{/interview/{id}(id=${response.getId()})}">Провести собеседование</a>
+                    </div>
+                    <br/>
+                    <form th:method="post" th:action="${'/deleteResponse'}">
+                        <button name="id" th:value="${response.id}">Удалить</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="details" th:if="${responsesList == null || responsesList.isEmpty()}">
+        <p>Нет откликов</p>
+    </div>
+
+</div>
+</body>
+</html>

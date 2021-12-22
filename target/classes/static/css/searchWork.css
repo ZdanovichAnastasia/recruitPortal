@@ -1,0 +1,94 @@
+.filter_form{
+    background-color: tan;
+    padding: 20px;
+}
+
+.filter_form button{
+    margin-left: 1270px;
+    height: 40px;
+    width: 170px;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+#position, #city, #category, #company{
+    height: 40px;
+    width: 300px;
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.filter_form > form > div{
+    display: inline-block;
+}
+
+.schedule, .busyness{
+    margin-left: 30px;
+    vertical-align: top;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+    padding: 0;
+}
+.busyness{
+    margin-left: 150px;
+}
+
+
+.vacancy_content{
+    background-color: rgb(128, 183, 238);
+    margin: 10px 40px 0px 40px;
+    padding: 5px;
+    padding-left: 36px;
+}
+
+.vacancy_content a{
+    text-decoration: none;
+    color: #d35050;
+
+}
+.vacancy_content h3{
+    color: #767676;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 26px;
+    letter-spacing: 3px;
+    font-family: 'Exo 2', sans-serif;
+}
+.vacancy_content p{
+    font-family: 'Exo 2', sans-serif;
+    font-size: 20px;
+}
+
+.vacancy_content{
+    position: relative;
+    height: 150px;
+}
+
+.vacancy_content .company{
+    position: absolute;
+    top: 40px;
+
+}
+.vacancy_content .city{
+    position: absolute;
+    top: 68px;
+}
+.vacancy_content .date{
+    position: absolute;
+    bottom: 1px;
+}
+.vacancy_content button{
+    position: absolute;
+    right: 30px;
+    top: 40px;
+    height: 40px;
+    width: 170px;
+    font-size: 20px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.vacancy_content .count_resp{
+    position: absolute;
+    right: 30px;
+    bottom: 10px;
+}

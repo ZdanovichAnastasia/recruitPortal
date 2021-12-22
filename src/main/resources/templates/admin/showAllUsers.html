@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <link rel="stylesheet" type="text/css" href="/css/tables.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+<script>setHeader("администратор");</script>
+<div class="container">
+    <form  th:action="@{/logout}" method="post">
+        <div class="login">
+            <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+        </div>
+    </form>
+</div>
+<div class="content">
+
+    <table class="table" th:if="${!usersList.isEmpty() && usersList!=null}">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Логин</th>
+            <th>Телефон</th>
+        </tr>
+        </thead>
+        <tbody th:each="user, state : ${usersList}">
+        <tr>
+            <td th:text="${user.name}"></td>
+            <td><a th:text="${user.login}" th:href="'/admin/userProfile?idUser='+${user.id}" > </a></td>
+            <td th:text="${user.phone}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="details" th:if="${usersList.isEmpty() || usersList==null}">
+        <p>Нет зарегистрированных пользователей</p>
+    </div>
+    <div style="margin-left: 100px; text-align: center; margin-top: 20px" class="company-buttons">
+        <button class="add-button" onclick="window.location.href='/admin/addUser'">Добавить рекрутера</button>
+    </div>
+</div>
+</body>
+</html>

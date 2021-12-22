@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <link rel="stylesheet" type="text/css" href="/css/input.css">
+    <script src="/js/headers.js"></script>
+    <script src="/js/filter.js"></script>
+</head>
+
+<body>
+<script>setHeader();</script>
+<div class="content">
+    <div class="input-window" style="width: 1000px; margin-left: 200px">
+        <form method="post" th:action="@{/response/{id}(id=${idJobPost})}" th:object="${profile}">
+            <h3>Личная информация</h3>
+            <input type="text" th:field="*{firstName}"  placeholder="Имя">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">error</p>
+
+            <input type="text" th:field="*{lastName}"  placeholder="Фамилия">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">error</p>
+
+            <input type="tel" th:field="*{phone}" placeholder="Номер телефона">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">error</p>
+
+            <input type="email" th:field="*{email}" placeholder="Email">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error</p>
+
+            <div class="gender-sel">
+                <label>Ваш пол: </label>
+                <input type="radio" th:field="*{gender}" id="m" value="мужчина">
+                <label for="m">мужчина</label>
+                <input type="radio" th:field="*{gender}" id="wm" value="женщина">
+                <label for="wm">женщина</label>
+                <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">error</p>
+            </div>
+
+            <input type="text" th:field="*{age}" placeholder="Возраст">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">error</p>
+
+            <br />
+            <button>Отправить</button>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

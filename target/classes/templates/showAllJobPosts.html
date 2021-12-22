@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymleafe.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <link rel="stylesheet" type="text/css" href="/css/viewport.css">
+    <script src="/js/headers.js"></script>
+    <script src="/js/filter.js"></script>
+</head>
+
+<body>
+<div sec:authorize="hasRole('admin')">
+    <script>setHeader("администратор");</script>
+    <div class="container">
+        <form  th:action="@{/logout}" method="post">
+            <div class="login">
+                <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div sec:authorize="hasRole('recruiter')">
+    <script>setHeader("рекрутер");</script>
+    <div class="container">
+        <form  th:action="@{/logout}" method="post">
+            <div class="login">
+                <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>setHeader();</script>
+
+<div class="content">
+
+    <div class="filter-form" id="filter">
+        <h3>Расширеный поиск</h3>
+        <form th:method="post" th:action="${'/filterJobPosts'}">
+            <div class="jobPost-filter-par">
+                <input type="text" name="position" id="position" placeholder="Должность">
+                <select name="jobType" id="jobType">
+                    <option value="" selected>Категория</option>
+                    <script th:inline="javascript">
+                        var jobTypeList = [[${jobTypeList}]];
+                        addList(jobTypeList, jobType);
+                    </script>
+                </select>
+            </div>
+            <br />
+            <br />
+            <br />
+            <button>Применить и найти</button>
+        </form>
+    </div>
+    <div class="sort-form" id="sort">
+        <h3>Соритровка</h3>
+        <form th:method="post" th:action="${'/sortJobPosts'}">
+            <label>Сортировать по: </label>
+            <input type="radio" id="finishDate" name="sortOption" value="дате окончания набора">
+            <label for="finishDate">дате окончания набора</label>
+            <input type="radio" id="responsesCount" name="sortOption" value="количеству откликов">
+            <label for="responsesCount">количеству откликов</label>
+            <button>Отсортировать</button>
+        </form>
+    </div>
+
+    <div th:if="${!jobPostsList.isEmpty() && jobPostsList != null}">
+        <div class="details" th:each="jobPost: ${jobPostsList}">
+            <div class="jobPost-par">
+                <h3><a th:text="${jobPost.jobTitle}" th:href="'/showJobPost?idJobPost='+${jobPost.id}"></a></h3>
+                <p th:text="'Зарплата: ' + ${jobPost.salaryLow}  + ' - ' +  ${jobPost.salaryHigh}"></p>
+                <p th:text="'Набор открыт с ' + ${jobPost.createdDate} +' до ' + ${jobPost.compensationTerm}"></p>
+                <p th:text="'Количество откликов: '+${jobPost.activities.size()}"></p>
+                <div class="st" sec:authorize="!isAuthenticated()">
+                    <a id="button" th:href="@{/response/{id}/add(id=${jobPost.id})}">Откликнуться</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="details" th:if="${jobPostsList.isEmpty() || jobPostsList == null}">
+        <p>Нет вакансий</p>
+    </div>
+
+    <div sec:authorize="hasRole('admin')" style="margin-left: 100px; text-align: center; margin-top: 20px" class="company-buttons">
+        <button class="add-button" onclick="window.location.href='/admin/addJobPost'">Добавить вакансию</button>
+    </div>
+</div>
+</body>
+</html>

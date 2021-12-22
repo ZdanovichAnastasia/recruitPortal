@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymleafe.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+
+<script>setHeader("администратор");</script>
+<div class="container">
+    <form  th:action="@{/logout}" method="post">
+        <div class="login">
+            <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+        </div>
+    </form>
+</div>
+<div class="content">
+
+    <div class="personal_info">
+        <a id="button" th:href="@{/user/{id}/edit(id=${userInfo.getId()})}">Изменить</a>
+        <div class = "labels">
+            <label name = "name" id = "name">Имя</label>
+            <br/>
+            <label name = "login" id = "login">Логин</label>
+            <br/>
+            <label name = "password" id = "password">Пароль</label>
+            <br/>
+            <label name = "phone" id = "phone">Телефон</label>
+            <br/>
+        </div>
+        <div class = "values">
+            <div th:text="${userInfo.name}"></div>
+            <div th:text="${userInfo.login}"></div>
+            <div th:text="${userInfo.password}"></div>
+            <div th:text="${userInfo.phone}"></div>
+        </div>
+    </div>
+
+    <!--<div class="details">-->
+        <div th:if="${userInfo.posts!=null && !userInfo.posts.isEmpty()}" class="resume-par">
+            <div class="details" th:each="post: ${userInfo.posts}">
+                <div class="jobPost-par">
+                    <h3><a th:text="${post.jobTitle}" th:href="'/showJobPost?idJobPost='+${post.id}"></a></h3>
+                    <p th:text="'Зарплата: ' + ${post.salaryLow}  + ' - ' +  ${post.salaryHigh}"></p>
+                    <p th:text="'Набор открыт с ' + ${post.createdDate} +' до ' + ${post.compensationTerm}"></p>
+                    <p th:text="'Количество откликов: '+${post.activities.size()}"></p>
+                </div>
+            </div>
+        </div>
+        <p th:if="${userInfo.posts==null || userInfo.posts.isEmpty()}">У пользователя еще активных вакансий</p>
+   <!-- </div>-->
+
+    <form method="post" th:action="@{/deleteUser}">
+        <button name = "id" th:value="${userInfo.id}" class="del-profile">Удалить пользователя</button>
+    </form>
+
+</div>
+</body>
+</html>

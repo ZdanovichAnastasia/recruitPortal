@@ -1,0 +1,60 @@
+.input-window{
+    width: 454px;
+    margin-left: 480px;
+    background: #FFFBFB;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 24px 57px 24px 57px;
+    text-align: center;
+
+    font-family: cursive;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.input-window h3{
+    font-family: cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 45px;
+
+    color: #000000;
+
+    border-bottom: 1px solid #000000;
+}
+
+.input-window input{
+    width: 293px;
+    height: 33px;
+    background: #FFFFFF;
+    border: 1px solid #21C2F8;
+    box-sizing: border-box;
+    margin-top: 15px;
+}
+
+.input-window div input{
+    width: 200px;
+}
+.input-window .gender-sel input{
+    width: auto;
+    height: auto;
+}
+.input-window p{
+    font-size: 20px;
+    line-height: 31px;
+}
+
+.input-window button{
+    height: 42px;
+    background: #21C2F8;
+    border-radius: 30px;
+    border: none;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 31px;
+    color: #FFFFFF;
+}
+

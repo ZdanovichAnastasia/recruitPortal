@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymleafe.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <link rel="stylesheet" type="text/css" href="/css/input.css">
+    <link rel="stylesheet" type="text/css" href="/css/viewport.css">
+    <script src="/js/headers.js"></script>
+    <script src="/js/filter.js"></script>
+</head>
+
+<body>
+<script>setHeader();</script>
+
+<div class="content">
+    <div class="input-window">
+        <h3>Опыт</h3>
+        <div class="personal_info" th:if="${!seekerProfileInfo.experiences.isEmpty() && seekerProfileInfo.experiences != null}">
+            <div class="values" th:each="experience : ${seekerProfileInfo.experiences}">
+                <p th:text="${experience.jobTitle}"></p>
+                <p th:text="${experience.companyName}"></p>
+                <p th:text="${experience.timeOfExperience}"></p>
+                <form method="post" th:action="@{/deleteExperience}">
+                    <button name = "id" th:value="${experience.id}" class="del-profile">Удалить информацию</button>
+                </form>
+            </div>
+        </div>
+        <div class="st">
+            <button onclick="openForm()">Добавить опыт</button>
+            <div class="form" id="myForm">
+                <div class="form-popup" >
+                    <form method="post" th:action="@{/addExperience/{id}(id=${seekerProfileInfo.getId()})}" th:object="${profile}">
+                        <input type="text" th:field="*{experiences[0].companyName}" placeholder="Компания">
+                        <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('experiences[0].companyName')}" th:errors="*{experiences[0].companyName}">error</p>
+
+                        <input type="text" th:field="*{experiences[0].jobTitle}" placeholder="Должность">
+                        <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('experiences[0].jobTitle')}" th:errors="*{experiences[0].jobTitle}">error</p>
+                        <div class="gender-sel">
+                            <label>Время работы: </label>
+                            <input type="radio" th:field="*{experiences[0].timeOfExperience}" id="1" value="меньше года">
+                            <label for="1">меньше года</label>
+                            <input type="radio" th:field="*{experiences[0].timeOfExperience}" id="13" value="от 1-2 лет">
+                            <label for="13">от 1-3 лет</label>
+                            <input type="radio" th:field="*{experiences[0].timeOfExperience}" id="35" value="от 3-5 лет">
+                            <label for="35">от 3-5 лет</label>
+                            <input type="radio" th:field="*{experiences[0].timeOfExperience}" id="5" value="больше 5 лет">
+                            <label for="5">больше 5 лет</label>
+                            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('experiences[0].timeOfExperience')}" th:errors="*{experiences[0].timeOfExperience}">error</p>
+                            <button style="margin-left: -20px" class="close">Сохранить</button>
+                        </div>
+                    </form>
+                    <button style="margin-left: -20px" class="close" onclick="closeForm()">Отмена</button>
+                </div>
+            </div>
+
+            <script>
+                function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                }
+
+                function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                }
+            </script>
+        </div>
+        <a th:href="'/'">Дальше</a>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

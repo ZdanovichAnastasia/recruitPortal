@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymleafe.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+<script>setHeader("рекрутер");</script>
+<div class="container">
+    <form  th:action="@{/logout}" method="post">
+        <div class="login">
+            <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+        </div>
+    </form>
+</div>
+
+<div class="content">
+    <div class="personal_info">
+        <div>
+            <h2 th:text="${seekerProfileInfo.lastName}+' '+${seekerProfileInfo.firstName}"></h2>
+            <p th:text="${seekerProfileInfo.gender}"></p>
+            <p th:text="${seekerProfileInfo.age}"></p>
+            <h3>Контактная информация</h3>
+            <div>Телефон: <span th:text="${seekerProfileInfo.phone}"></span></div>
+            <div>Email: <span th:text="${seekerProfileInfo.email}"></span></div>
+            <h3>Образование</h3>
+            <div th:if="${!seekerProfileInfo.educations.isEmpty() && seekerProfileInfo.educations != null}">
+                <div class="educ" th:each="education : ${seekerProfileInfo.educations}">
+                    <p th:text="${education.university}"></p>
+                    <p th:text="${education.speciality}"></p>
+                    <p th:text="${education.admissionYear}+'-'+${education.graduationYear}"></p>
+                </div>
+            </div>
+            <h3>Опыт</h3>
+            <div th:if="${!seekerProfileInfo.experiences.isEmpty() && seekerProfileInfo.experiences != null}">
+                <div class="educ" th:each="experience : ${seekerProfileInfo.experiences}">
+                    <p th:text="${experience.jobTitle}"></p>
+                    <p th:text="${experience.companyName}"></p>
+                    <p th:text="${experience.timeOfExperience}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="personal_info" th:if="${!seekerProfileInfo.seekerSkills.isEmpty() && seekerProfileInfo.seekerSkills != null}">
+        <div class="values">
+            <div >
+                <div class = "skills" th:each="skill: ${seekerProfileInfo.seekerSkills}">
+                    <p th:text="${skill.seekerSkillSet.skillSetName}"></p>
+                    <div class="cont">
+                        <div class="skills name" th:style="'width: '+${skill.skillLevel}+'%; background-color: #21C2F8;'" th:text="${skill.skillLevel}+'%'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div sec:authorize="hasRole('recruiter')">
+        <form method="post" th:action="@{/profile/{id}/download(id=${seekerProfileInfo.id})}">
+            <button name="id" th:value="${seekerProfileInfo.id}" class="del-profile">Скачать резюме</button>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

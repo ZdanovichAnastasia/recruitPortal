@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymleafe.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <link rel="stylesheet" type="text/css" href="/css/input.css">
+    <link rel="stylesheet" type="text/css" href="/css/viewport.css">
+    <script src="/js/headers.js"></script>
+    <script src="/js/filter.js"></script>
+</head>
+
+<body>
+<script>setHeader();</script>
+
+<div class="content">
+    <div class="input-window">
+        <h3>Образование</h3>
+        <div class="personal_info" th:if="${!seekerProfileInfo.educations.isEmpty() && seekerProfileInfo.educations != null}">
+            <div class="values" th:each="education : ${seekerProfileInfo.educations}">
+                <p th:text="${education.university}"></p>
+                <p th:text="${education.speciality}"></p>
+                <p th:text="${education.admissionYear}+'-'+${education.graduationYear}"></p>
+                <form method="post" th:action="@{/deleteEducation}">
+                    <button name = "id" th:value="${education.id}" class="del-profile">Удалить информацию</button>
+                </form>
+            </div>
+        </div>
+        <div class="st">
+            <button onclick="openForm()">Добавить образование</button>
+            <div class="form" id="myForm">
+                <div class="form-popup" >
+                    <form method="post" th:action="@{/addEducation/{id}(id=${seekerProfileInfo.getId()})}" th:object="${profile}">
+                        <input type="text" th:field="*{educations[0].university}" placeholder="Универ">
+                        <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('educations[0].university')}" th:errors="*{educations[0].university}">error</p>
+
+                        <input type="text" th:field="*{educations[0].speciality}" placeholder="Специальность">
+                        <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('educations[0].speciality')}" th:errors="*{educations[0].speciality}">error</p>
+
+                        <input type="text" th:field="*{educations[0].admissionYear}" placeholder="Начало обучения">
+                        <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('educations[0].admissionYear')}" th:errors="*{educations[0].admissionYear}">error</p>
+
+                        <input type="text" th:field="*{educations[0].graduationYear}" placeholder="Конец обучения">
+                        <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('educations[0].graduationYear')}" th:errors="*{educations[0].graduationYear}">error</p>
+                        <button style="margin-left: -20px" class="close">Сохранить</button>
+                    </form>
+                    <button style="margin-left: -20px" class="close" onclick="closeForm()">Отмена</button>
+                </div>
+            </div>
+
+            <script>
+                function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                }
+
+                function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                }
+            </script>
+        </div>
+        <a th:href="'/addExperiences?idSeekerProfile='+${seekerProfileInfo.getId()}">Дальше</a>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

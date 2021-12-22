@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+<script>setHeader("рекрутер");</script>
+<div class="container">
+    <form  th:action="@{/logout}" method="post">
+        <div class="login">
+            <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+        </div>
+    </form>
+</div>
+
+<div class="content">
+    <div  th:if="${userInfo.posts!=null && !userInfo.posts.isEmpty()}">
+        <div class="details" th:each="jobPost: ${userInfo.posts}">
+            <div class="jobPost-par" >
+                <h3><a th:text="${jobPost.jobTitle}" th:href="'/showJobPost?idJobPost='+${jobPost.id}"></a></h3>
+                <p th:text="'Зарплата: ' + ${jobPost.salaryLow}  + ' - ' +  ${jobPost.salaryHigh}"></p>
+                <p th:text="'Набор открыт с ' + ${jobPost.createdDate} +' до ' + ${jobPost.compensationTerm}"></p>
+                <p th:text="'Количество откликов: '+${jobPost.activities.size()}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="details" th:if="${userInfo.posts == null || userInfo.posts.isEmpty()}">
+        <p>У вас сейчас нет активных вакансий</p>
+    </div>
+</div>
+</body>
+</html>

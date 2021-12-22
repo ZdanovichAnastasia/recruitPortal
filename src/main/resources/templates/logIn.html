@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/input.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+<script>setHeader();</script>
+
+<div class="content">
+    <div class= "input-window">
+        <form th:action="@{/logIn}" method="post">
+            <h3>Вход</h3>
+            <input type="text" name="username" id="username" placeholder="Логин"><br/>
+            <input type="password" name="password" id="password" placeholder="Пароль"><br/>
+            <br/>
+            <button>Войти</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

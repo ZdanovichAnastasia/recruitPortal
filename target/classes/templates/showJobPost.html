@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymleafe.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/css/showAll.css">
+    <link rel="stylesheet" type="text/css" href="/css/viewport.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+<div sec:authorize="hasRole('admin')">
+    <script>setHeader("администратор");</script>
+    <div class="container">
+        <form  th:action="@{/logout}" method="post">
+            <div class="login">
+                <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div sec:authorize="hasRole('recruiter')">
+    <script>setHeader("рекрутер");</script>
+    <div class="container">
+        <form  th:action="@{/logout}" method="post">
+            <div class="login">
+                <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>setHeader();</script>
+
+<div class="content">
+
+    <div class="personal_info">
+        <div sec:authorize="hasRole('admin')">
+            <a id="button" th:href="@{/post/{id}/edit(id=${jobPostInfo.getId()})}">Изменить</a>
+        </div>
+        <div>
+            <h3 th:text="${jobPostInfo.jobTitle}"></h3>
+            <br/>
+            <div th:text="${jobPostInfo.jobType.jobTypeName}"></div>
+            <br/>
+            <div th:text="'Зарплата:  '+${jobPostInfo.salaryLow}+' - '+${jobPostInfo.salaryHigh}"></div>
+            <br/>
+            <div th:text="${jobPostInfo.compensationTerm}"></div>
+            <br/>
+            <div th:text="${jobPostInfo.createdDate}"></div>
+            <div sec:authorize="hasRole('admin')">
+                <a th:text="${jobPostInfo.user.login}" th:href="'/admin/userProfile?idUser='+${jobPostInfo.user.id}"> </a>
+            </div>
+        </div>
+    </div>
+    <div class="personal_info" th:if="${!jobPostInfo.skills.isEmpty() && jobPostInfo.skills != null}">
+        <div class="values" th:each="skill : ${jobPostInfo.skills}">
+            <p th:text="${skill.skillSet.skillSetName}"></p>
+            <div class="cont">
+                <div class="skills name" th:style="'width: '+${skill.skillLevel}+'%; background-color: #21C2F8;'" th:text="${skill.skillLevel}+'%'"></div>
+            </div>
+        </div>
+    </div>
+ <!--   <div class="st"  sec:authorize="hasRole('admin')">
+        <button onclick="openForm()">Добавить навык</button>
+        <div class="form" id="myForm">
+            <div class="form-popup" >
+                <form method="post" th:action="@{/addSkill/{id}(id=${jobPostInfo.getId()})}" th:object="${post}">
+                    <input type="text" th:field="*{skills[0].skillSet.skillSetName}" placeholder="Навык"><br/>
+                    <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('skills[0].skillSet.skillSetName')}" th:errors="*{skills[0].skillSet.skillSetName}">error</p>
+
+                    <input type="text" th:field="*{skills[0].skillLevel}" placeholder="Уровень"><br/>
+                    <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('skills[0].skillLevel')}" th:errors="*{skills[0].skillLevel}">error</p>
+                    <button style="margin-left: -20px" class="close">Сохранить</button>
+                </form>
+                <button style="margin-left: -20px" class="close" onclick="closeForm()">Отмена</button>
+            </div>
+        </div>
+
+        <script>
+            function openForm() {
+                document.getElementById("myForm").style.display = "block";
+            }
+
+            function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+            }
+        </script>
+    </div>-->
+    <div sec:authorize="hasRole('admin')">
+        <form method="post" th:action="@{/deleteJobPost}">
+            <button name = "id" th:value="${jobPostInfo.id}" class="del-profile">Удалить вакансию</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

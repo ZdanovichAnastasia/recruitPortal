@@ -1,0 +1,12 @@
+.jobTypeSt{
+    position: relative;
+}
+.jobTypeSt .white_block {
+    position: absolute;
+    display: block;
+    right: 0px;
+    bottom: 0px;
+    background: cadetblue;
+    width: 90px;
+    height: 14px;
+}

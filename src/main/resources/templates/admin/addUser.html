@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruitPortal</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/input.css">
+    <script src="/js/headers.js"></script>
+</head>
+
+<body>
+<script>setHeader("администратор");</script>
+<div class="container">
+    <form  th:action="@{/logout}" method="post">
+        <div class="login">
+            <button style="position: fixed; margin-left: 450px;  z-index: 30;" class="btn_auto">Выйти</button>
+        </div>
+    </form>
+</div>
+
+<div class="content">
+    <div class="input-window">
+        <h3>Добавление рекрутера</h3>
+        <form action="#" method="post"  th:action="@{/newUser}" th:object="${user}">
+            <input type="text" th:field="*{name}" placeholder="Имя">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">error</p>
+
+            <input type="text" th:field="*{login}" placeholder="Логин">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">error</p>
+
+            <input type="password" th:field="*{password}" placeholder="Пароль">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error</p>
+
+            <input type="tel" th:field="*{phone}" placeholder="Номер телефона">
+            <p style="color:red; font-size: 14px;" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">error</p>
+
+            <button>Сохранить</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

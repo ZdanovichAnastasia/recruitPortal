@@ -1,0 +1,39 @@
+.forRecruiter, .forStudent{
+    width: 1266px;
+    margin-left: 60px;
+    background: #F3F7F8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 57px;
+}
+
+.forStudent{
+    height: 320px;
+    margin-top: 65px;
+}
+.forRecruiter{
+    height: 392px;
+}
+.content a{
+    text-decoration: none;
+    color: #21C2F8;
+}
+
+.content a:hover{ color: #060d38; }
+
+.content h3{
+    font-family: cursive;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 45px;
+
+    color: #21C2F8;
+}
+
+.content p{
+    font-style: normal;
+    font-size: 18px;
+    line-height: 23px;
+
+    color: #000000;
+}
